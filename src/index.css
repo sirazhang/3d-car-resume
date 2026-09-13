@@ -1,0 +1,551 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #f3e8ee;
+  font-family: Inter, "Noto Sans SC", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.sheet-stage {
+  perspective: 1600px;
+  transform-style: preserve-3d;
+  isolation: isolate;
+}
+
+/* 更透的磨砂玻璃卡片，向场景内侧倾斜 */
+.glass-sheet {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.22) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    18px 28px 70px rgba(15, 23, 42, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(26px) saturate(170%);
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+  transform: rotateY(-12deg) rotateX(4deg);
+  transform-origin: 100% 50%;
+  transform-style: preserve-3d;
+}
+
+/* 项目卡取消 3D 倾斜，避免缩略图点击落到关闭层 */
+.glass-sheet-flat {
+  transform: none;
+}
+
+.glass-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.46) 0%,
+    rgba(255, 255, 255, 0.22) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  box-shadow:
+    0 24px 60px rgba(40, 24, 32, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  transform: rotateY(-8deg) rotateX(2.5deg);
+  transform-origin: 50% 50%;
+}
+
+.portrait-wrap {
+  display: grid;
+  place-items: center;
+  margin-left: -28px;
+}
+.portrait-gif {
+  height: min(280px, 42vh);
+  width: auto;
+  max-width: 250px;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 22px rgba(40, 20, 30, 0.28));
+  pointer-events: none;
+}
+.font-card-name {
+  font-family: "Cormorant Garamond", "Fraunces", serif;
+}
+
+.glass-sheet-dark {
+  background: linear-gradient(
+    180deg,
+    rgba(18, 18, 22, 0.62) 0%,
+    rgba(18, 18, 22, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f5f5f7;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.no-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 99px;
+}
+
+/* Education map 卡片 + 圆点 */
+.map-dot {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: rgba(198, 45, 92, 0.18);
+  border: 2px solid #d6336c;
+  box-shadow: 0 0 14px rgba(214, 51, 108, 0.55);
+  transform: translate(-50%, -50%);
+  animation: dotpulse 2.4s ease-out infinite;
+}
+.map-dot::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 9999px;
+  background: #d6336c;
+}
+@keyframes dotpulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(214, 51, 108, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(214, 51, 108, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(214, 51, 108, 0);
+  }
+}
+
+.map-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.78));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 14px 40px rgba(30, 20, 40, 0.2);
+  transform: translate(-50%, -50%);
+  width: 210px;
+  max-width: 210px;
+}
+.map-card-right {
+  transform: translate(28px, -18%);
+}
+.map-card-left {
+  transform: translate(calc(-100% - 22px), 28%);
+}
+.map-card-bottom {
+  transform: translate(-50%, 28px);
+}
+.map-card .flag {
+  font-size: 20px;
+  line-height: 1;
+}
+.map-card .school {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #2f2130;
+  line-height: 1.25;
+}
+.map-card .meta {
+  font-size: 11px;
+  color: rgba(60, 40, 60, 0.65);
+}
+
+/* iPhone & Watch mockups */
+.device-iphone {
+  position: relative;
+  width: 240px;
+  border-radius: 40px;
+  padding: 12px;
+  background: #141517;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 2px #444;
+}
+.device-iphone .device-iphone-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 24px;
+  background: #0a0a0b;
+  color: #fff;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0 14px 14px;
+  z-index: 2;
+}
+.device-iphone img {
+  display: block;
+  width: 100%;
+  border-radius: 30px;
+  background: #000;
+}
+
+.device-watch {
+  position: relative;
+  width: 190px;
+  border-radius: 46px;
+  padding: 10px;
+  background: #141517;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 2px #444;
+}
+.device-watch::before,
+.device-watch::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 80px;
+  height: 30px;
+  background: #1a1b1d;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+.device-watch::before {
+  top: -24px;
+  border-radius: 14px 14px 0 0;
+}
+.device-watch::after {
+  bottom: -24px;
+  border-radius: 0 0 14px 14px;
+}
+.device-watch-crown {
+  position: absolute;
+  right: -4px;
+  top: 40px;
+  width: 6px;
+  height: 22px;
+  border-radius: 3px;
+  background: #2b2c2e;
+}
+.device-watch img {
+  display: block;
+  width: 100%;
+  border-radius: 36px;
+  background: #000;
+}
+
+/* MacBook mockup */
+.device-macbook {
+  width: min(660px, 100%);
+  margin: 0 auto;
+  filter: drop-shadow(0 26px 44px rgba(15, 23, 42, 0.28));
+}
+.device-macbook-top {
+  position: relative;
+  padding: 10px 12px;
+  background: linear-gradient(180deg, #2b2d31 0%, #17181b 100%);
+  border-radius: 18px 18px 2px 2px;
+  box-shadow: inset 0 0 0 1px #3a3c40;
+}
+.device-macbook-cam {
+  width: 6px;
+  height: 6px;
+  margin: 0 auto 6px;
+  border-radius: 9999px;
+  background: #0a0a0b;
+  box-shadow: inset 0 0 0 1px #2e3033;
+}
+.device-macbook-top img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #000;
+}
+.device-macbook-base {
+  position: relative;
+  height: 12px;
+  margin: 0 -1.5%;
+  width: 103%;
+  background: linear-gradient(180deg, #d8dadd 0%, #bfc2c7 60%, #9da1a8 100%);
+  border-radius: 2px 2px 14px 14px;
+}
+.device-macbook-notch {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 70px;
+  height: 5px;
+  transform: translateX(-50%);
+  background: #8e939b;
+  border-radius: 0 0 8px 8px;
+}
+
+/* 立体长方形主题开关：左白天 / 右夜晚，无文字 */
+.theme-switch {
+  display: flex;
+  width: 86px;
+  height: 36px;
+  padding: 3px;
+  gap: 2px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #efeaf1 0%, #d4ccd6 100%);
+  box-shadow:
+    inset 0 2px 5px rgba(40, 20, 40, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.75),
+    0 8px 18px rgba(15, 23, 42, 0.16);
+}
+.theme-seg {
+  flex: 1;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
+}
+.theme-seg.on {
+  background: linear-gradient(180deg, #ffffff 0%, #f3eef5 100%);
+  box-shadow:
+    0 2px 5px rgba(15, 23, 42, 0.2),
+    inset 0 1px 0 #fff;
+  transform: translateY(-0.5px);
+}
+.theme-ico {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+.theme-ico.sun {
+  border-radius: 50%;
+  background: #f5c14a;
+  box-shadow: 0 0 0 2px rgba(245, 193, 74, 0.28), 0 0 8px rgba(245, 193, 74, 0.7);
+}
+.theme-ico.moon {
+  border-radius: 50%;
+  background: #e8edf8;
+  box-shadow: inset -4px 0 0 #7d87a8;
+}
+
+/* 行驶 ↑ / ↓ */
+.drive-btn {
+  width: 54px;
+  height: 54px;
+  border: 0;
+  border-radius: 16px;
+  color: #2c2430;
+  background: linear-gradient(180deg, #ffffff 0%, #ece6ee 100%);
+  box-shadow:
+    0 10px 22px rgba(15, 23, 42, 0.18),
+    inset 0 1px 0 #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+}
+.drive-btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 14px 26px rgba(15, 23, 42, 0.22),
+    inset 0 1px 0 #fff;
+}
+.drive-btn:not(:disabled):active {
+  transform: translateY(1px);
+}
+.drive-btn:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+.drive-btn-lg {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+}
+
+.fuel-gauge {
+  pointer-events: none;
+  min-width: 176px;
+  padding: 12px 18px 8px;
+  border-radius: 999px 999px 18px 18px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.fuel-gauge.day {
+  background: rgba(248, 232, 222, 0.42);
+  border: 1px solid rgba(187, 39, 77, 0.12);
+  box-shadow:
+    0 10px 22px rgba(80, 30, 40, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.fuel-gauge.night {
+  background: linear-gradient(180deg, rgba(6, 18, 32, 0.42) 0%, rgba(10, 28, 48, 0.32) 100%);
+  border: 1px solid rgba(46, 230, 255, 0.28);
+  box-shadow:
+    0 0 14px rgba(46, 230, 255, 0.16),
+    inset 0 0 18px rgba(255, 79, 216, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.hud-idle {
+  width: 360px;
+  border-radius: 999px 999px 20px 20px;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 10px 24px 12px;
+  color: #334155;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  text-align: center;
+}
+.intro-card {
+  width: min(520px, 46vw);
+  padding: 28px 36px 32px;
+  border-radius: 28px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(255, 255, 255, 0.28) 55%,
+    rgba(255, 236, 244, 0.22) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    -28px 36px 64px rgba(40, 24, 32, 0.28),
+    10px 18px 32px rgba(40, 24, 32, 0.1),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  text-align: center;
+  transform: rotateY(-26deg) rotateX(10deg) translateZ(36px);
+  transform-origin: 100% 58%;
+}
+.sight-stage {
+  width: min(340px, 60vw);
+  height: min(300px, 46vh);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  overflow: hidden;
+}
+.sight-stage canvas { display: block; }
+.movie-reel {
+  position: relative;
+  width: min(400px, 68vw);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #12141a;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.movie-reel img {
+  display: block;
+  width: 100%;
+  height: min(300px, 44vh);
+  object-fit: cover;
+}
+.movie-reel-bar {
+  height: 16px;
+  background: repeating-linear-gradient(90deg, #0a0b0f 0 14px, #1c1f28 14px 28px);
+}
+.movie-reel-cap {
+  position: absolute;
+  right: 10px;
+  bottom: 24px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #f5f5f7;
+  font-size: 11px;
+  font-family: ui-monospace, monospace;
+}
+.font-intro-hi {
+  font-family: "Great Vibes", "Fraunces", cursive;
+  font-size: 72px;
+}
+.fuel-bar {
+  margin-top: 2px;
+  height: 7px;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.fuel-gauge.day .fuel-bar {
+  background: rgba(187, 39, 77, 0.12);
+}
+.fuel-gauge.night .fuel-bar {
+  background: rgba(22, 50, 74, 0.9);
+}
+.fuel-bar-fill {
+  height: 100%;
+}
+.fuel-gauge.day .fuel-bar-fill {
+  background: linear-gradient(90deg, #ffde59, #bb274d);
+}
+.fuel-gauge.night .fuel-bar-fill {
+  background: linear-gradient(90deg, #2ee6ff, #ff4fd8);
+  box-shadow: 0 0 8px #2ee6ff;
+}
+.fuel-pct {
+  margin-top: 4px;
+  text-align: right;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+.fuel-gauge.day .fuel-pct {
+  color: #bb274d;
+}
+.fuel-gauge.night .fuel-pct {
+  color: #b8f4ff;
+}
+
+.sheet-edu {
+  width: min(920px, 80vw);
+  max-height: 82vh;
+}
+.sheet-pub {
+  width: min(920px, 80vw);
+  max-height: 82vh;
+}
+.sheet-proj {
+  width: min(920px, 80vw);
+  height: min(640px, 82vh);
+}
+.sheet-contact {
+  width: min(680px, 74vw);
+  height: min(300px, 46vh);
+}
+.edu-map {
+  height: min(420px, 58vh);
+}
+
+.device-macbook {
+  width: min(420px, 100%);
+}
+.device-iphone {
+  width: 168px;
+}
+.device-watch {
+  width: 132px;
+}

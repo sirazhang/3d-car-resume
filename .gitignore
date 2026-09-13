@@ -1,0 +1,14 @@
+node_modules
+dist
+.DS_Store
+*.local
+.workbuddy
+.skill
+.tgzcache
+blend_inspect.txt
+inspect_blend.py
+inspect_blend2.py
+road_samples.json
+getdeps.py
+vite.config.ts.timestamp-*.mjs
+*.zip

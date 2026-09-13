@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Spiral Town · 张淽卉</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <div id="stage">
+    <canvas id="scene" width="900" height="1600"></canvas>
+    <div id="hud" class="hud" aria-hidden="false">
+      <div class="hud-top">
+        <div class="hud-title">Spiral Town</div>
+        <div class="hud-sub">驾驶 · Zhihui 的小镇简历</div>
+      </div>
+      <div class="hud-controls">
+        <button id="btnUp" class="drive-btn" type="button" aria-label="前进">▲</button>
+        <button id="btnDown" class="drive-btn" type="button" aria-label="后退">▼</button>
+      </div>
+      <div class="hud-hint" id="hudHint">点 ▲ 启动 / 切到 ↑↓ 键盘也行</div>
+      <div class="hud-fuel">
+        <div class="hud-fuel-fill" id="fuelFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="cardRoot" class="card-root" aria-hidden="true"></div>
+
+  <script src="./assets/main.js"></script>
+</body>
+</html>
